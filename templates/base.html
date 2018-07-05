@@ -1,0 +1,60 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href='//fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<!-- Start-wrap -->
+
+<!-- Start-Header-->
+<div class="header">
+    <div class="wrap">
+        <!-- Start-logo-->
+        <div class="logo">
+            <a href="/"><img src="../static/img/logo.png" title="logo"/></a>
+        </div>
+        <!-- End-Logo-->
+        <!-- Start-Header-nav-->
+        <div class="header-nav">
+            <ul>
+                <!--<li class="active"><a href="index.html">Home</a></li>-->
+                <li><a href="admin">Admin Login</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <!-- End-Header-nav-->
+    </div>
+    <!-- End-Header-->
+    <div class="clear"></div>
+    <!-- content-gallery-->
+</div>
+
+<div class="wrap">
+    {% block content %}{% endblock %}
+</div>
+
+<div class="clear"></div>
+<!-- End-content-gallery-->
+
+
+<div class="footer1">
+    <p class="link"><span>© 2013 Clip . All rights Reserved | Designed by&nbsp; <a href="http://w3layouts.com/"> W3layouts</a>	</span>
+    </p>
+</div>
+<!-- End-wrap -->
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
+
