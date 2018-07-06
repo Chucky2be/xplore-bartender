@@ -1,42 +1,44 @@
 {% extends 'base.html' %}
 
-
 {% block title %}
-Select Cocktail
+    Select Cocktail
 {% endblock %}
 
 
 {% block content %}
-<h1>Select Cocktail for more info</h1>
+    <h1>Select Cocktail for more info</h1>
 
-{% for cocktail in cocktail_list %}
-<div class="content-gallery">
-    <a href="/detail">
-        <div class="boxgrid caption">
-            <img src="{{cocktail.img}}"/>
-            <div class="cover boxcaption">
-                <h3>"{{cocktail.name}}"</h3>
-                <p>{{cocktail.description_short}}</p>
-            </div>
-            <div class="clear"></div>
+
+    {% for cocktail in cocktail_list %}
+
+        <div class="content-gallery">
+            <a href="/detail?cocktail={{ cocktail.id }}">
+                <div class="boxgrid caption">
+                    <img src="{{ cocktail.img }}"/>
+                    <div class="cover boxcaption">
+                        <h3>"{{ cocktail.name }}"</h3>
+                        <p>{{ cocktail.description_short }}</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </a>
         </div>
-    </a>
-</div>
-{% endfor %}
+
+    {% endfor %}
 {% endblock %}
 
 
 {% block scripts %}
-<!--<script src="../static/script/jquery.min.js"></script>-->
-<!--<script type="text/javascript">-->
-<!--$(document).ready(function () {-->
-<!--//To switch directions up/down and left/right just place a "-" in front of the top/left attribute-->
-<!--//Caption Sliding (Partially Hidden to Visible)-->
-<!--$('.boxgrid.caption').hover(function () {-->
-<!--$(".cover", this).stop().animate({top: '170px'}, {queue: false, duration: 160});-->
-<!--}, function () {-->
-<!--$(".cover", this).stop().animate({top: '220px'}, {queue: false, duration: 160});-->
-<!--});-->
-<!--});-->
-<!--</script>-->
+    <!--<script src="../static/script/jquery.min.js"></script>-->
+    <!--<script type="text/javascript">-->
+    <!--$(document).ready(function () {-->
+    <!--//To switch directions up/down and left/right just place a "-" in front of the top/left attribute-->
+    <!--//Caption Sliding (Partially Hidden to Visible)-->
+    <!--$('.boxgrid.caption').hover(function () {-->
+    <!--$(".cover", this).stop().animate({top: '170px'}, {queue: false, duration: 160});-->
+    <!--}, function () {-->
+    <!--$(".cover", this).stop().animate({top: '220px'}, {queue: false, duration: 160});-->
+    <!--});-->
+    <!--});-->
+    <!--</script>-->
 {% endblock %}

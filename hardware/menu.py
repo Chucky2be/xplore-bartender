@@ -68,7 +68,7 @@ class MenuContext(object):
 		if (not menuItem.visible):
 			self.advance()
 		else:
-			self.delegate.displayMenuItem(menuItem)
+			self.delegate.displayMenuItem(menuItem)#################################
 
 	def advance(self):
 		"""

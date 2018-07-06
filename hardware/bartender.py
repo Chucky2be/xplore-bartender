@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 import json
 import threading
 import traceback
+import os
 
 from dotstar import Adafruit_DotStar
 from menu import MenuItem, Menu, Back, MenuContext, MenuDelegate
@@ -28,7 +29,11 @@ RIGHT_PIN_BOUNCE = 2000
 ALCOHOL_BTN_PIN = 19  # -----!!!!-----
 ALCOHOL_PIN_BOUNCE = 2000 * 100  # -----!!!!-----
 
-# for more advanced display functions (not used atm)
+# set pin for alcohol button (high debounce for wait effect)
+ADMIN_BTN_PIN = 16  # -----!!!!-----
+ADMIN_PIN_BOUNCE = 2000 * 100  # -----!!!!-----
+
+# for display
 OLED_RESET_PIN = 14
 OLED_DC_PIN = 15
 
@@ -55,11 +60,17 @@ class Bartender(MenuDelegate):
         self.btn1Pin = LEFT_BTN_PIN
         self.btn2Pin = RIGHT_BTN_PIN
         self.btn3Pin = ALCOHOL_BTN_PIN  # -----!!!!-----
+        self.btn4Pin = ADMIN_BTN_PIN  # -----!!!!-----
+
+        # vars for toggle
+        self.alcohol_enabled = False
+        self.admin_enabled = False
 
         # configure interrups for buttons
         GPIO.setup(self.btn1Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.btn2Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.btn3Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # -----!!!!-----
+        GPIO.setup(self.btn4Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # -----!!!!-----
 
         # configure screen
         spi_bus = 0
@@ -103,25 +114,28 @@ class Bartender(MenuDelegate):
 
     @staticmethod
     def readPumpConfiguration():
+        os.system("pwd")
+        os.system("ls -a")
         return json.load(open('hardware/pump_config.json'))
 
     @staticmethod
     def writePumpConfiguration(configuration):
-        with open("pump_config.json", "w") as jsonFile:
+        with open("hardware/pump_config.json", "w") as jsonFile:
             json.dump(configuration, jsonFile)
 
     def startInterrupts(self):
         GPIO.add_event_detect(self.btn1Pin, GPIO.FALLING, callback=self.left_btn, bouncetime=LEFT_PIN_BOUNCE)
         GPIO.add_event_detect(self.btn2Pin, GPIO.FALLING, callback=self.right_btn, bouncetime=RIGHT_PIN_BOUNCE)
-        GPIO.add_event_detect(self.btn3Pin, GPIO.FALLING, callback=self.alcohol_btn,
-                              bouncetime=ALCOHOL_PIN_BOUNCE)  # -----!!!!-----
+        GPIO.add_event_detect(self.btn3Pin, GPIO.FALLING, callback=self.alcohol_btn,bouncetime=ALCOHOL_PIN_BOUNCE)  # -----!!!!-----
+        GPIO.add_event_detect(self.btn4Pin, GPIO.FALLING, callback=self.admin_btn,bouncetime=ADMIN_PIN_BOUNCE)  # -----!!!!-----
 
     def stopInterrupts(self):
         GPIO.remove_event_detect(self.btn1Pin)
         GPIO.remove_event_detect(self.btn2Pin)
         GPIO.remove_event_detect(self.btn3Pin)
+        GPIO.remove_event_detect(self.btn4Pin)
 
-    def buildMenu(self, drink_list, drink_options, alcoholic_drinks_enabled=False):
+    def buildMenu(self, drink_list, drink_options, alcoholic_drinks_enabled=False, admin_options_enabled=False):
         # create a new main menu
         m = Menu("Main Menu")
 
@@ -161,8 +175,13 @@ class Bartender(MenuDelegate):
         configuration_menu.addOption(MenuItem('clean', 'Clean'))
         configuration_menu.setParent(m)
 
+        # add drinks to options
         m.addOptions(drink_opts)
-        m.addOption(configuration_menu)
+
+        # check if admin is enabled
+        if admin_options_enabled == True:
+            m.addOption(configuration_menu)
+
         # create a menu context
         self.menuContext = MenuContext(m, self)
 
@@ -205,7 +224,7 @@ class Bartender(MenuDelegate):
 
     def menuItemClicked(self, menuItem):
         if (menuItem.type == "drink"):
-            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"])
+            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"]) ###################################"
             return True
         elif (menuItem.type == "pump_selection"):
             self.pump_configuration[menuItem.attributes["key"]]["value"] = menuItem.attributes["value"]
@@ -254,6 +273,9 @@ class Bartender(MenuDelegate):
         self.led.clear_display()
         self.led.draw_text2(0, 20, menuItem.name, 2)
         self.led.display()
+        print(menuItem.type)###########################################################################################
+        os.system("DISPLAY=:0 firefox http://192.168.55.5/ &")
+
 
     def cycleLights(self):
         t = threading.currentThread()
@@ -352,6 +374,8 @@ class Bartender(MenuDelegate):
         self.running = False
 
     def left_btn(self, ctx):
+        print("hit")
+
         if not self.running:
             self.menuContext.advance()
 
@@ -365,8 +389,13 @@ class Bartender(MenuDelegate):
 
     def alcohol_btn(self, ctx):
         # rebuild the menu
+        self.alcohol_enabled= self.alcohol_enabled ^ 1
+        self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
 
-        self.buildMenu(drink_list, drink_options, True)  # -----!!!!-----
+    def admin_btn(self, ctx):
+        # rebuild the menu
+        self.admin_enabled= self.admin_enabled ^ 1
+        self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
 
     def updateProgressBar(self, percent, x=15, y=15):
         height = 10
@@ -383,20 +412,25 @@ class Bartender(MenuDelegate):
 
     def run(self):
         self.startInterrupts()
-        # # main loop
-        # try:
-        #     while True:
-        #         time.sleep(0.1)
-        #
-        # except Exception as ex:
-        #     print(ex)  # prints error #-----!
-        #
-        # finally:
-        #     GPIO.cleanup()  # clean up GPIO on exit
-        #
-        # traceback.print_exc()
+        # main loop
+        try:
+            while True:
+                time.sleep(0.1)
+
+        except Exception as ex:
+            print(ex)  # prints error #-----!
+            raise ex
+
+        finally:
+            GPIO.cleanup()  # clean up GPIO on exit
 
 
     def start_operation(self):
         self.buildMenu(drink_list, drink_options)
         self.run()
+
+    @staticmethod
+    def set_gpio():
+        GPIO.setmode(GPIO.BCM)
+
+
