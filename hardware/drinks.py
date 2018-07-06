@@ -121,15 +121,15 @@ drink_dict = {}
 
 def list_to_dict():
     for cocktail in drink_list:
-        drink_dict[cocktail["id"]] = cocktail
+        drink_dict[cocktail["name"].replace(" ","")] = cocktail
 
 
-def get_drink_from_id(id):
+def get_drink_from_id(name):
     try:
         if drink_dict == {}:
             list_to_dict()
 
-        return drink_dict[id]
+        return drink_dict[name.replace(" ","")]
 
     except Exception as ex:
         raise Exception("Id not found, probaly not in dict")

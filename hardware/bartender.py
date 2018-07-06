@@ -274,7 +274,21 @@ class Bartender(MenuDelegate):
         self.led.draw_text2(0, 20, menuItem.name, 2)
         self.led.display()
         print(menuItem.type)###########################################################################################
-        os.system("DISPLAY=:0 firefox http://192.168.55.5/ &")
+        print(menuItem.attributes)
+        print(menuItem.name)
+        os.system("DISPLAY=:0 firefox http://169.254.55.5:8080 &")
+
+    def displayInBrowser(self, menuItem):
+        if (menuItem.type == "drink"):
+            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"])  ###################################"
+            return True
+        elif (menuItem.type == "pump_selection"):
+            self.pump_configuration[menuItem.attributes["key"]]["value"] = menuItem.attributes["value"]
+            Bartender.writePumpConfiguration(self.pump_configuration)
+            return True
+        elif (menuItem.type == "clean"):
+            self.clean()
+            return True
 
 
     def cycleLights(self):
@@ -412,17 +426,18 @@ class Bartender(MenuDelegate):
 
     def run(self):
         self.startInterrupts()
-        # main loop
-        try:
-            while True:
-                time.sleep(0.1)
-
-        except Exception as ex:
-            print(ex)  # prints error #-----!
-            raise ex
-
-        finally:
-            GPIO.cleanup()  # clean up GPIO on exit
+        # # main loop
+        # try:
+        #     while True:
+        #         time.sleep(0.1)
+        #
+        # except Exception as ex:
+        #     print("ex from hw")
+        #     print(ex)  # prints error #-----!
+        #     raise ex
+        #
+        # finally:
+        #     GPIO.cleanup()  # clean up GPIO on exit
 
 
     def start_operation(self):
@@ -432,5 +447,9 @@ class Bartender(MenuDelegate):
     @staticmethod
     def set_gpio():
         GPIO.setmode(GPIO.BCM)
+
+    @staticmethod
+    def clean_gpio():
+        GPIO.cleanup()
 
 
