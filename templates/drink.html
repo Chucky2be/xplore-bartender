@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Bartender - {{ drink.name }}
+{% endblock %}
+
+
+{% block content %}
+    <h1>Login to manage the system</h1>
+
+        <div class="wrap">
+    <h1>Select Cocktail for more info</h1>
+
+    {% for drink in drink_list %}
+
+        <div class="content-gallery">
+            <a href="/drink?drink={{ drink.base64name }}">
+                <div class="boxgrid caption">
+                    <img src="{{ drink.img }}"/>
+                    <div class="cover boxcaption">
+                        <h3>"{{ drink.name }}"</h3>
+                        <p>{{ drink.description_short }}</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </a>
+        </div>
+
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

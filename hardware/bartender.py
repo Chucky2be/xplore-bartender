@@ -8,6 +8,7 @@ import json
 import threading
 import traceback
 import os
+import base64
 
 from dotstar import Adafruit_DotStar
 from menu import MenuItem, Menu, Back, MenuContext, MenuDelegate
@@ -45,6 +46,11 @@ NEOPIXEL_BRIGHTNESS = 64
 
 # number, liquid the pump can "move", tweek if amount is incorrect
 FLOW_RATE = 60.0 / 100.0
+
+# vars from the web site
+server_host =  "169.254.55.5"
+server_port =  "8080"
+root_path = "/"
 
 
 class Bartender(MenuDelegate):
@@ -276,20 +282,30 @@ class Bartender(MenuDelegate):
         print(menuItem.type)###########################################################################################
         print(menuItem.attributes)
         print(menuItem.name)
-        os.system("DISPLAY=:0 firefox http://169.254.55.5:8080 &")
+
+        print(menuItem.name)
+
+        self.displayInBrowser(menuItem)
+
 
     def displayInBrowser(self, menuItem):
+        # check the type and open the matching page
         if (menuItem.type == "drink"):
-            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"])  ###################################"
-            return True
-        elif (menuItem.type == "pump_selection"):
-            self.pump_configuration[menuItem.attributes["key"]]["value"] = menuItem.attributes["value"]
-            Bartender.writePumpConfiguration(self.pump_configuration)
-            return True
-        elif (menuItem.type == "clean"):
-            self.clean()
-            return True
+            path = "/drink?drink={0}".format(base64.encodestring(menuItem.name))
+            self.create_exectute_display_command(path)
 
+        elif (menuItem.type == "pump_selection"):
+            path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
+            self.create_exectute_display_command(path)
+
+        elif (menuItem.type == "clean"):
+            path = "/clean"
+            self.create_exectute_display_command(path)
+
+    def create_exectute_display_command(self, path):
+        # makes the command with the given parms
+        command = "DISPLAY=:0 firefox {0}:{1}{2} &".format(server_host,server_port,path)
+        os.system(command)
 
     def cycleLights(self):
         t = threading.currentThread()
@@ -388,7 +404,7 @@ class Bartender(MenuDelegate):
         self.running = False
 
     def left_btn(self, ctx):
-        print("hit")
+        print("left hit")
 
         if not self.running:
             self.menuContext.advance()
@@ -426,19 +442,6 @@ class Bartender(MenuDelegate):
 
     def run(self):
         self.startInterrupts()
-        # # main loop
-        # try:
-        #     while True:
-        #         time.sleep(0.1)
-        #
-        # except Exception as ex:
-        #     print("ex from hw")
-        #     print(ex)  # prints error #-----!
-        #     raise ex
-        #
-        # finally:
-        #     GPIO.cleanup()  # clean up GPIO on exit
-
 
     def start_operation(self):
         self.buildMenu(drink_list, drink_options)

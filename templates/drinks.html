@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Select Cocktail
+    Bartender - Select Cocktail
 {% endblock %}
 
 
 {% block content %}
+
+    <div class="wrap">
     <h1>Select Cocktail for more info</h1>
 
-
-    {% for cocktail in cocktail_list %}
+    {% for drink in drink_list %}
 
         <div class="content-gallery">
-            <a href="/detail?cocktail={{ cocktail.id }}">
+            <a href="/drink?drink={{ drink.base64name }}">
                 <div class="boxgrid caption">
-                    <img src="{{ cocktail.img }}"/>
+                    <img src="{{ drink.img }}"/>
                     <div class="cover boxcaption">
-                        <h3>"{{ cocktail.name }}"</h3>
-                        <p>{{ cocktail.description_short }}</p>
+                        <h3>"{{ drink.name }}"</h3>
+                        <p>{{ drink.description_short }}</p>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -25,6 +26,8 @@
         </div>
 
     {% endfor %}
+    </div>
+
 {% endblock %}
 
 

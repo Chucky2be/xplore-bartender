@@ -1,4 +1,5 @@
 import uuid
+import base64
 
 drink_list = [
     {
@@ -118,20 +119,31 @@ drink_options = [
 
 drink_dict = {}
 
-
+# converts the above list into dict so it becomes searchable
 def list_to_dict():
-    for cocktail in drink_list:
-        drink_dict[cocktail["name"].replace(" ","")] = cocktail
+    for drink in drink_list:
+        drink_dict[refactor_name(drink["name"])] = drink
 
-
-def get_drink_from_id(name):
+# refactors the name so it is an allowed name (url)
+def refactor_name(name):
     try:
-        if drink_dict == {}:
+        return base64.encodestring(name).replace("\n", "")
+
+    except:
+        raise Exception("Not a supported format")
+
+# gets the drink by name
+def get_drink_from_name(base64name):
+
+    try:
+        # if dict is still empty or key not found update
+        if drink_dict == {} or base64name not in drink_dict.keys():
             list_to_dict()
 
-        return drink_dict[name.replace(" ","")]
+        return drink_dict[base64name]
 
     except Exception as ex:
+        #throw ex if not found
         raise Exception("Id not found, probaly not in dict")
 
 

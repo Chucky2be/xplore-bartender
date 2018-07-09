@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Admin
+    Bartender - Admin
 {% endblock %}
 
 
 {% block content %}
-    <h1>Login to manage the system</h1>
+    <div class="wrap">
+        <div class="about">
+
+            <div class="contact-form">
+                <h4>Login to manage the system</h4>
+                <form>
+                    <div>
+                        <span><label>Login</label></span>
+                        <span><input type="text" value=""/></span>
+                    </div>
+                    <div>
+                        <span><label>Email</label></span>
+                        <span><input type="text" value=""/></span>
+                    </div>
+                    <div>
+                        <span><label>Xplore Id</label></span>
+                        <span><textarea> </textarea></span>
+                    </div>
+                    <div>
+                        <span><input type="submit" value="Submit"></span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
 {% endblock %}
 
 {% block scripts %}
