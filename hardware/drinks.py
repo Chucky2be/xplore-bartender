@@ -10,8 +10,8 @@ drink_list = [
         },
         "alcoholic": True,
         "img": "../static/img/cocktails/rumcoke.jpg",
-        "description_short": "Bangkok",
-        "description": "Bangkok bangerang",
+        "description_short": "Highball cocktail",
+        "description": "Rum and Coke or Cuba Libre is a highball cocktail consisting of cola and rum. The cocktail originated in the early 20th century in Cuba after the country won independence in the Spanish-American War.",
         "id": "e9fa34eb-6530-4bb4-9719-ed167575b850"
     }, {
         "name": "Gin & Tonic",

@@ -10,6 +10,7 @@ import traceback
 import os
 import base64
 
+from time import sleep
 from dotstar import Adafruit_DotStar
 from menu import MenuItem, Menu, Back, MenuContext, MenuDelegate
 from drinks import drink_list, drink_options
@@ -49,6 +50,7 @@ FLOW_RATE = 60.0 / 100.0
 
 # vars from the web site
 server_host =  "169.254.55.5"
+#server_host =  "127.0.0.1"
 server_port =  "8080"
 root_path = "/"
 
@@ -116,7 +118,10 @@ class Bartender(MenuDelegate):
             self.strip.setPixelColor(i, 0)
         self.strip.show()
 
-        print "Done initializing"
+        # add var so the system can go back
+        self.lastpagecommand = ""
+
+        print("Done initializing")
 
     @staticmethod
     def readPumpConfiguration():
@@ -279,32 +284,46 @@ class Bartender(MenuDelegate):
         self.led.clear_display()
         self.led.draw_text2(0, 20, menuItem.name, 2)
         self.led.display()
-        print(menuItem.type)###########################################################################################
-        print(menuItem.attributes)
-        print(menuItem.name)
 
+        print("set on oled")
+        print(menuItem.type)
         print(menuItem.name)
 
         self.displayInBrowser(menuItem)
-
 
     def displayInBrowser(self, menuItem):
         # check the type and open the matching page
         if (menuItem.type == "drink"):
             path = "/drink?drink={0}".format(base64.encodestring(menuItem.name))
+
             self.create_exectute_display_command(path)
 
         elif (menuItem.type == "pump_selection"):
-            path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
+            path = "/pump?pump={0}".format(base64.encodestring(menuItem.name))
             self.create_exectute_display_command(path)
 
         elif (menuItem.type == "clean"):
             path = "/clean"
             self.create_exectute_display_command(path)
 
-    def create_exectute_display_command(self, path):
+        elif (menuItem.type == "menu"):
+            # check if it is a pump, conf or something else
+            if "Pump" not in menuItem.name:
+                path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
+                self.create_exectute_display_command(path)
+
+            if "configure" in menuItem.name:
+                path = "/configure"
+                self.create_exectute_display_command(path)
+
+        elif (menuItem.type == "back"):
+            path = "/back"
+            self.create_exectute_display_command(path)
+
+    def create_exectute_display_command(self, webpath):
         # makes the command with the given parms
-        command = "DISPLAY=:0 firefox {0}:{1}{2} &".format(server_host,server_port,path)
+        command = "DISPLAY=:0 firefox '{0}:{1}{2}' &".format(server_host,server_port,webpath)
+        # execute
         os.system(command)
 
     def cycleLights(self):
@@ -418,11 +437,15 @@ class Bartender(MenuDelegate):
             print ("cocktail already being made")
 
     def alcohol_btn(self, ctx):
+        print("alcohol hit")
+
         # rebuild the menu
         self.alcohol_enabled= self.alcohol_enabled ^ 1
         self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
 
     def admin_btn(self, ctx):
+        print("admin hit")
+
         # rebuild the menu
         self.admin_enabled= self.admin_enabled ^ 1
         self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
@@ -447,12 +470,13 @@ class Bartender(MenuDelegate):
         self.buildMenu(drink_list, drink_options)
         self.run()
 
+
     @staticmethod
     def set_gpio():
         GPIO.setmode(GPIO.BCM)
 
-    @staticmethod
-    def clean_gpio():
+    def clean_gpio(self):
+        self.stopInterrupts()
         GPIO.cleanup()
 
 

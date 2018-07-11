@@ -1,0 +1,116 @@
+.detail-container {
+    width: 55%;
+    margin: auto;
+}
+
+.detail-box {
+    box-sizing: border-box;
+    width: 33%;
+    height: auto;
+    float: left;
+    /*margin: 10px;*/
+    background: #161613;
+    border: ridge 1px rgb(255, 255, 255);
+    overflow: hidden;
+    position: relative;
+    border-radius: 0.3em;
+    box-shadow: 0px 0px 10px rgb(192, 192, 192);
+}
+
+.detail-img {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+.detail-description {
+    box-sizing: border-box;
+    padding-top: 45px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 60%;
+    float: left;
+    margin: auto;
+}
+
+.detail-description h1 {
+    color: #FF8400;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 23px;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+.detail-description p {
+    float: left;
+}
+
+.pageheight{
+    min-height: 85vh;
+}
+
+/*---End-wrap*/
+/*------responive-design--------*/
+@media screen and (max-width: 1024px) {
+    .detail-container {
+        width: 80%;
+    }
+
+    .detail-description {
+        padding-top: 25px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    .detail-container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    .detail-description {
+        padding-top: 15px;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    .detail-box {
+        width: 100%;
+    }
+
+    .detail-description {
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+}
+
+@media screen and (max-width: 480px) {
+
+}
+
+@media screen and (max-width: 414px) {
+
+}
+
+@media screen and (max-width: 384px) {
+
+}
+
+@media screen and (max-width: 375px) {
+
+}
+
+@media screen and (max-width: 320px) {
+
+}

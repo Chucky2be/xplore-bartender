@@ -21,6 +21,15 @@ a{text-decoration:none;}
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
+
+
+/*import local font*/
+@font-face {
+    font-family: "Carrois Gothic SC";
+    src:url("../font/Carrois_Gothic_SC/CarroisGothicSC.ttf");
+}
+
+
 /*end reset*/
 /*---start-wrap*/
 
@@ -97,7 +106,7 @@ img{max-width:100%;}
 					position: absolute; 
 					top: 0; 
 					left: 0; 
-					border: 0; 
+					border: 0;
 				}
 				.boxgrid p{ 
 					padding: 0 10px; 

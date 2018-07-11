@@ -13,9 +13,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     {#      @font-face { font-family: JuneBug; src: url('../static/font/Carrois_Gothic_SC/CarroisGothicSC.ttf'); }#}
     {#    </style>#}
     <link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../static/css/add.css" rel="stylesheet" type="text/css" media="all"/>
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href='//fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+{#    <link href='//fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>#}
 
 </head>
 <body>
@@ -44,9 +45,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- content-gallery-->
 </div>
 
-
+<div class="pageheight">
 {% block content %}{% endblock %}
-
+</div>
 
 <div class="clear"></div>
 <!-- End-content-gallery-->
