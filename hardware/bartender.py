@@ -27,13 +27,13 @@ LEFT_PIN_BOUNCE = 1000
 RIGHT_BTN_PIN = 5
 RIGHT_PIN_BOUNCE = 2000
 
-# set pin for alcohol button (high debounce for wait effect)
+# set pin for alcohol button
 ALCOHOL_BTN_PIN = 19  # -----!!!!-----
-ALCOHOL_PIN_BOUNCE = 2000 * 100  # -----!!!!-----
+ALCOHOL_PIN_BOUNCE = 2000  # -----!!!!-----
 
-# set pin for alcohol button (high debounce for wait effect)
+# set pin for alcohol button
 ADMIN_BTN_PIN = 16  # -----!!!!-----
-ADMIN_PIN_BOUNCE = 2000 * 100  # -----!!!!-----
+ADMIN_PIN_BOUNCE = 2000   # -----!!!!-----
 
 # for display
 OLED_RESET_PIN = 14
@@ -295,30 +295,33 @@ class Bartender(MenuDelegate):
         # check the type and open the matching page
         if (menuItem.type == "drink"):
             path = "/drink?drink={0}".format(base64.encodestring(menuItem.name))
-
             self.create_exectute_display_command(path)
 
-        elif (menuItem.type == "pump_selection"):
-            path = "/pump?pump={0}".format(base64.encodestring(menuItem.name))
+        else:
+            path = "/basic-menu?item={0}&type={1}".format(base64.encodestring(menuItem.name), base64.encodestring(menuItem.type))
             self.create_exectute_display_command(path)
 
-        elif (menuItem.type == "clean"):
-            path = "/clean"
-            self.create_exectute_display_command(path)
-
-        elif (menuItem.type == "menu"):
-            # check if it is a pump, conf or something else
-            if "Pump" not in menuItem.name:
-                path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
-                self.create_exectute_display_command(path)
-
-            if "configure" in menuItem.name:
-                path = "/configure"
-                self.create_exectute_display_command(path)
-
-        elif (menuItem.type == "back"):
-            path = "/back"
-            self.create_exectute_display_command(path)
+        # elif (menuItem.type == "pump_selection"):
+        #     path = "/pump?pump={0}".format(base64.encodestring(menuItem.name))
+        #     self.create_exectute_display_command(path)
+        #
+        # elif (menuItem.type == "clean"):
+        #     path = "/clean"
+        #     self.create_exectute_display_command(path)
+        #
+        # elif (menuItem.type == "menu"):
+        #     # check if it is a pump, conf or something else
+        #     if "Pump" not in menuItem.name:
+        #         path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
+        #         self.create_exectute_display_command(path)
+        #
+        #     if "configure" in menuItem.name:
+        #         path = "/configure"
+        #         self.create_exectute_display_command(path)
+        #
+        # elif (menuItem.type == "back"):
+        #     path = "/back"
+        #     self.create_exectute_display_command(path)
 
     def create_exectute_display_command(self, webpath):
         # makes the command with the given parms

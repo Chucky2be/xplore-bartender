@@ -1,11 +1,22 @@
-.detail-container {
-    width: 55%;
-    margin: auto;
+html, body {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer1 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .detail-box {
     box-sizing: border-box;
-    width: 33%;
+    width: 40%;
     height: auto;
     float: left;
     /*margin: 10px;*/
@@ -47,8 +58,18 @@
     float: left;
 }
 
-.pageheight{
-    min-height: 85vh;
+.center-all {
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.center-all h1 {
+    color: #FF8400;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 23px;
+    letter-spacing: -1px;
+    font-weight: bold;
 }
 
 /*---End-wrap*/

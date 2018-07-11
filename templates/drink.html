@@ -15,6 +15,15 @@
         <div class="detail-description">
             <h1>{{ drink.name }}</h1>
             <p>{{ drink.description }}</p>
+            <br>
+            <br>
+            <p>
+                Ingredients:
+                {% for ingredient in drink.ingredients %}
+                    {{ ingredient }}
+                {% endfor %}
+            </p>
+
         </div>
     </div>
 {% endblock %}
