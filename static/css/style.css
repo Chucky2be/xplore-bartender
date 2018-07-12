@@ -40,8 +40,9 @@ img{max-width:100%;}
 /*---start-header*/
 .header{
 	margin-bottom: 28px;
-	border-bottom: 1px ridge #FF8400;
-	background: url('../img/header-bg.png') #353534;
+	border-bottom: 1px ridge #D8D8D8;
+	/*background: url('../img/header-bg.png') #353534;*/
+	background-color: #afafaf;
 }
 /*---start-logo*/
 .logo{
@@ -215,7 +216,8 @@ ul.dc_paginationA03 li a:hover, ul.dc_paginationA03 li a.current {
 /*footer1*/
 .footer1{
 	padding: 20px;
-	background: #353534;
+	/*background: #353534;*/
+	background: #585252;
 	border-top: 1px ridge rgba(255, 148, 65, 0.75);
 
 }

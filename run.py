@@ -3,7 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import abort
-from hardware.bartender import Bartender
+# from hardware.bartender import Bartender
 from hardware.drinks import *  # this provides the drink list mentioned
 from time import sleep
 from threading import Thread
@@ -121,11 +121,6 @@ def admin():
 def start_hardware():
     print("turning on hw")
 
-    # adds a base64 field from the name in order tot transfer
-    # not the best way but no classes
-    for drink in drink_list:
-        drink["base64name"] = base64.encodestring(drink["name"])
-
     # set gpio
     Bartender.set_gpio()
 
@@ -135,6 +130,12 @@ def start_hardware():
 
     # start
     bartender.start_operation()
+
+def create_base64():
+    # adds a base64 field from the name in order tot transfer
+    # not the best way but no classes
+    for drink in drink_list:
+        drink["base64name"] = base64.encodestring(drink["name"])
 
 #
 def set_full_screen():
@@ -147,7 +148,8 @@ def set_full_screen():
 if __name__ == '__main__':
     try:
         # turn on hw
-        start_hardware()
+        # start_hardware()
+        create_base64()
 
         # set full screen as threat
         screen_thread = Thread(target=set_full_screen)
@@ -160,7 +162,9 @@ if __name__ == '__main__':
         # set ip
         host = "169.254.55.5"
         # pas parms and set debug
-        app.run(host=host, port=port, debug=False, threaded=True)
+        # app.run(host=host, port=port, debug=False, threaded=True)
+
+        app.run(port=port, debug=False, threaded=True)
 
 
     except Exception as ex:
