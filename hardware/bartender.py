@@ -184,6 +184,8 @@ class Bartender(MenuDelegate):
         configuration_menu.addOption(Back("Back"))
         # adds an option that cleans all pumps to the configuration menu
         configuration_menu.addOption(MenuItem('clean', 'Clean'))
+        # adds the option to power off
+        configuration_menu.addOption(MenuItem('poweroff', 'Power off'))
         configuration_menu.setParent(m)
 
         # add drinks to options
@@ -244,6 +246,11 @@ class Bartender(MenuDelegate):
         elif (menuItem.type == "clean"):
             self.clean()
             return True
+        elif (menuItem.type == "poweroff"):
+            print("system will go off")
+            os.system("sudo shutdown now")
+            return True
+
         return False
 
     def clean(self):
