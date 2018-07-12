@@ -13,16 +13,19 @@
 /*---start-header*/
 .header {
     margin-bottom: 28px;
-    /*border-bottom: 1px ridge #D8D8D8;*/
-    border-bottom: 1px ridge #e9e9e9;
-    background-color: #bcbcbc;
-    /*background-color: #e9e9e9;*/
+	border-bottom: 1px ridge #FF8400;
+	background: #353534;
 }
 
 /*---start-logo*/
 .logo {
     float: left;
     padding: 22.5px 0px 0px 0px;
+}
+
+.logo img{
+    height: 50px;
+    width: auto;
 }
 
 /*---end-logo*/
@@ -50,7 +53,7 @@
 }
 
 .header-nav ul li a:hover {
-    color: #363643;
+    color:#FF8400;
 }
 
 /*---end-header-nav*/
@@ -126,11 +129,8 @@
 /*---footer----*/
 .footer {
     padding: 20px;
-    /*background: #353534;*/
-    /*background: #585252;*/
-    background: url("../img/triangles.png") #585252;
-    border-top: 1px ridge #363643;
-
+	background: #353534;
+	border-top: 1px ridge rgba(255, 148, 65, 0.75);
 }
 
 .footer p {
@@ -315,6 +315,11 @@ form textarea {
 
     .contact-form form textarea {
         resize: none;
+    }
+
+    .boxgrid
+    {
+        box-shadow: 0px 0px 5px rgb(192, 192, 192);
     }
 
 }
