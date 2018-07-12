@@ -3,7 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import abort
-# from hardware.bartender import Bartender
+from hardware.bartender import Bartender
 from hardware.drinks import *  # this provides the drink list mentioned
 from time import sleep
 from threading import Thread
@@ -147,14 +147,13 @@ def set_full_screen():
 
 if __name__ == '__main__':
     try:
-        # turn on hw
-        # start_hardware()
+        # turn on hw, create base 64
+        start_hardware()
         create_base64()
 
         # set full screen as threat
         screen_thread = Thread(target=set_full_screen)
         screen_thread.start()
-
 
         # set server vars
         # set port 8080
@@ -162,9 +161,9 @@ if __name__ == '__main__':
         # set ip
         host = "169.254.55.5"
         # pas parms and set debug
-        # app.run(host=host, port=port, debug=False, threaded=True)
+        app.run(host=host, port=port, debug=False, threaded=True)
 
-        app.run(port=port, debug=False, threaded=True)
+        #app.run(port=port, debug=False, threaded=True)
 
 
     except Exception as ex:

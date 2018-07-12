@@ -50,7 +50,7 @@ body {
 }
 
 .detail-description h1 {
-    color: #FF8400;
+    color: #363643;
     font-family: 'Carrois Gothic SC', sans-serif;
     font-size: 23px;
     letter-spacing: -1px;
@@ -68,7 +68,7 @@ body {
 }
 
 .center-all h1 {
-    color: #FF8400;
+    color: #363643;
     font-family: 'Carrois Gothic SC', sans-serif;
     font-size: 23px;
     letter-spacing: -1px;
@@ -92,6 +92,12 @@ body {
     .detail-container {
         width: 100%;
     }
+
+    .detail-box
+    {
+        box-shadow: 0px 0px 5px rgb(192, 192, 192);
+    }
+
 }
 
 @media screen and (max-width: 736px) {
