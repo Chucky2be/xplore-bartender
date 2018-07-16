@@ -58,7 +58,7 @@ body {
 }
 
 .detail-description p {
-    float: left;
+    /*float: left;*/
 }
 
 .center-all {

@@ -257,8 +257,7 @@ class Bartender(MenuDelegate):
             self.clean()
             return True
         elif (menuItem.type == "poweroff"):
-            print("system will go off")
-            os.system("sudo shutdown now")
+            self.shutdown()
             return True
 
         return False
@@ -295,6 +294,10 @@ class Bartender(MenuDelegate):
         # reenable interrupts
         # self.startInterrupts()
         self.running = False
+
+    def shutdown(self):
+        print("system will go off")
+        os.system("sudo shutdown now")
 
     def displayMenuItem(self, menuItem):
         print menuItem.name
@@ -376,6 +379,9 @@ class Bartender(MenuDelegate):
         # cancel any button presses while the drink is being made
         # self.stopInterrupts()
         self.running = True
+
+        # show a page so the user knows it's buzzy
+        self.create_exectute_display_command("/making?drink={0}".format(base64.encodestring(drink)))
 
         # launch a thread to control lighting
         lightsThread = threading.Thread(target=self.cycleLights)

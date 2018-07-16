@@ -9,8 +9,10 @@ from time import sleep
 from threading import Thread
 
 app = Flask(__name__)
+drink_making_web = True
 
 
+# region Webpages
 # index (same as cocktail overvieuw)
 @app.route('/')
 def index():
@@ -32,18 +34,55 @@ def drinks():
 
 
 # path for one drink
-@app.route("/drink")
+@app.route("/drink", methods=["GET"])
 def drink():
     # request if cocktail was given
     drink_name = request.args.get("drink")
 
     # if coctail does not exist throw 404
     try:
-        drink = get_drink_from_name(drink_name)
-        return render_template("drink.html", drink=drink)
+        drink = get_drink_from_base64name(drink_name)
+        return render_template("drink.html", drink=drink, drink_making_web=drink_making_web)
     except Exception as ex:
         print(ex)
         abort(404)
+
+
+@app.route("/drink", methods=["POST"])
+def drink_post():
+
+    try:
+        if drink_making_web == True:
+            # request if cocktail was given
+            drink_name = request.args.get("drink")
+
+            # if coctail does not exist throw 404
+            try:
+                drink = get_drink_from_base64name(drink_name)
+                bartender.makeDrink(drink["name"], drink["ingredients"])
+
+            except Exception as ex:
+                print(ex)
+                abort(404)
+        else:
+            abort(403)
+
+
+    except Exception as ex:
+        print(ex)
+        abort(400)
+
+
+@app.route("/making")
+def making():
+    try:
+        drink_name =  request.args.get("drink")
+        drink = get_drink_from_base64name(drink_name)
+
+        return render_template("making.html", drink = drink)
+
+    except Exception as ex:
+        print(ex)
 
 
 @app.route("/basic-menu")
@@ -53,7 +92,7 @@ def basicmenu():
         item = base64.decodestring(request.args.get("item"))
         type = base64.decodestring(request.args.get("type"))
 
-        #emty var
+        # emty var
         description = ""
 
         # small changes in name for more info
@@ -80,6 +119,43 @@ def admin():
     return render_template("admin.html")
 
 
+# settings (alcohol, toggle, ...)
+@app.route('/settings', methods=['GET'])
+def settings():
+    try:
+        return render_template("settings.html", pump_config="", )
+    except:
+        abort(400)
+
+
+@app.route('/settings', methods=['POST'])
+def settings_post():
+    try:
+        #key = request.args.get("key")
+        form_type = (request.form['type'])
+
+        if form_type ==  "clean":
+            bartender.clean()
+
+        elif form_type == "shutdown":
+            bartender.shutdown()
+
+        elif form_type == "drink_making_web_enable":
+            try:
+                if request.form["drink_making_web_enable"] == '1':
+                    drink_making_web = True
+
+            except:
+                drink_making_web = False
+
+    except:
+        abort(400)
+
+
+# endregion
+
+
+# region Normal Functions
 # starts the hw
 def start_hardware():
     print("turning on hw")
@@ -95,11 +171,12 @@ def start_hardware():
     bartender.start_operation()
 
 
+# adds a base64 field from the name in order tot transfer
+# not the best way but no classes
 def create_base64():
-    # adds a base64 field from the name in order tot transfer
-    # not the best way but no classes
     for drink in drink_list:
         drink["base64name"] = base64.encodestring(drink["name"])
+
 
 # function, "presses" f11 for firefox fullscreen
 def set_full_screen():
@@ -107,6 +184,9 @@ def set_full_screen():
     sleep(15)
     print("smashed F11")
     os.system("sudo xdotool key F11")
+
+
+# endregion
 
 
 if __name__ == '__main__':
@@ -127,7 +207,7 @@ if __name__ == '__main__':
         # pas parms and set debug
         app.run(host=host, port=port, debug=False, threaded=True)
 
-        #app.run(port=port, debug=False, threaded=True)
+        # app.run(port=port, debug=False, threaded=True)
 
 
     except Exception as ex:
@@ -135,11 +215,10 @@ if __name__ == '__main__':
         print("Interupted")
 
     finally:
-        #clean gpio
+        # clean gpio
         bartender.clean_gpio()
 
         # kill firefox
         os.system("pkill firefox")
-
 
         print("Cleaned GPIO")

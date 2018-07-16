@@ -16,14 +16,19 @@
             <h1>{{ drink.name }}</h1>
             <p>{{ drink.description }}</p>
             <br>
-            <br>
-            <br>
             <p>
                 Ingredients:
                 {% for ingredient in drink.ingredients %}
                     {{ ingredient }}
                 {% endfor %}
             </p>
+
+            {% if drink_making_web == True %}
+                <form method="post" title="drink" name="pasword">
+                    <input type="text" value="drink" title="drink" name="drink" hidden="hidden">
+                    <input type="submit" value="Make!" id="submit">
+                </form>
+            {% endif %}
 
         </div>
     </div>

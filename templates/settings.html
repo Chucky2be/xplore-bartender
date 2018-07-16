@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Bartender - Configuration
+{% endblock %}
+
+
+{% block content %}
+    <h1>Management</h1>
+    <h2>Drink overview</h2>
+    <p>Here you find all of the drinks stored in the machine</p>
+    {% for drink in drink_config %}
+        <p>{{ drink }}</p>
+    {% endfor %}
+
+    <h2>Pump overview</h2>
+    {% for pump in pump_config %}
+        <p>{{ pump }}</p>
+    {% endfor %}
+
+    <h2>Interfacing</h2>
+    <p>Enable website orders</p>
+
+    <h2>Other</h2>
+    <p>Clean</p>
+    <p>Power off</p>
+
+
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

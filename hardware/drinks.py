@@ -124,7 +124,7 @@ def refactor_name(name):
         raise Exception("Not a supported format")
 
 # gets the drink by name
-def get_drink_from_name(base64name):
+def get_drink_from_base64name(base64name):
 
     try:
         # if dict is still empty or key not found update
