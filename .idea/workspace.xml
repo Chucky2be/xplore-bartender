@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adf89835-e218-4250-9822-8d76d5c42dd6" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/logo-edit.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/triangles-light.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/triangles-small.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/triangles.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/back.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/clean.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/pump.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/pumps.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hardware/bartender.py" afterPath="$PROJECT_DIR$/hardware/bartender.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hardware/drinks.py" afterPath="$PROJECT_DIR$/hardware/drinks.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hardware/menu.py" afterPath="$PROJECT_DIR$/hardware/menu.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hardware/pump_config.json" afterPath="$PROJECT_DIR$/hardware/pump_config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.py" afterPath="$PROJECT_DIR$/run.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/drink.html" afterPath="$PROJECT_DIR$/templates/drink.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,50 +35,55 @@
       <file leaf-file-name="run.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3150">
-              <caret line="158" column="23" lean-forward="false" selection-start-line="158" selection-start-column="23" selection-end-line="158" selection-end-column="23" />
+            <state relative-caret-position="315">
+              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#378#519#0" expanded="false" />
+                <element signature="e#577#718#0" expanded="false" />
+                <element signature="e#777#1074#0" expanded="false" />
+                <element signature="e#1124#1886#0" expanded="false" />
+                <element signature="e#2036#2236#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <file leaf-file-name="bartender.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hardware/bartender.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="319" column="12" lean-forward="false" selection-start-line="319" selection-start-column="12" selection-end-line="319" selection-end-column="12" />
-              <folding />
+            <state relative-caret-position="1554">
+              <caret line="146" column="47" lean-forward="false" selection-start-line="146" selection-start-column="35" selection-end-line="146" selection-end-column="47" />
+              <folding>
+                <element signature="e#7549#8225#0" expanded="false" />
+                <element signature="e#8277#8779#0" expanded="false" />
+                <element signature="e#8827#8910#0" expanded="false" />
+                <element signature="e#9672#10576#0" expanded="false" />
+                <element signature="e#11641#12513#0" expanded="false" />
+                <element signature="e#12559#12859#0" expanded="false" />
+                <element signature="e#12904#12995#0" expanded="false" />
+                <element signature="e#13301#14857#0" expanded="false" />
+                <element signature="e#15885#16345#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="27" column="81" lean-forward="false" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="drinks.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/drinks.html">
+      <file leaf-file-name="menu.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hardware/menu.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+              <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/add.css">
+      <file leaf-file-name="drink.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/drink.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2016">
-              <caret line="96" column="5" lean-forward="true" selection-start-line="95" selection-start-column="0" selection-end-line="98" selection-end-column="5" />
+            <state relative-caret-position="399">
+              <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -83,13 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>flex</find>
-      <find>content-gallery</find>
-      <find>@</find>
-      <find>boxgrid</find>
-      <find>&amp;</find>
-      <find>h3</find>
-      <find>padd</find>
       <find>\x</find>
       <find>int</find>
       <find>host</find>
@@ -113,6 +125,13 @@
       <find>head</find>
       <find>logo</find>
       <find>box-shadow</find>
+      <find>left_btn</find>
+      <find>right</find>
+      <find>menuPl</find>
+      <find>menu_pl</find>
+      <find>nextSelection</find>
+      <find>getSelection</find>
+      <find>menu</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,7 +141,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../Smart-Bartender-old/bartender.py" />
-        <option value="$PROJECT_DIR$/hardware/menu.py" />
         <option value="$PROJECT_DIR$/ruzzle.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/debug_run.py" />
@@ -131,21 +149,23 @@
         <option value="$PROJECT_DIR$/templates/drinks.html" />
         <option value="$PROJECT_DIR$/templates/admin.html" />
         <option value="$PROJECT_DIR$/templates/clean.html" />
-        <option value="$PROJECT_DIR$/hardware/drinks.py" />
         <option value="$PROJECT_DIR$/static/img/cocktails/sources.txt" />
         <option value="$PROJECT_DIR$/templates/configure.html" />
         <option value="$PROJECT_DIR$/templates/pumps.html" />
         <option value="$PROJECT_DIR$/templates/pump.html" />
         <option value="$PROJECT_DIR$/templates/back.html" />
         <option value="$PROJECT_DIR$/templates/basic-menu.html" />
-        <option value="$PROJECT_DIR$/templates/drink.html" />
-        <option value="$PROJECT_DIR$/hardware/bartender.py" />
         <option value="$PROJECT_DIR$/static/css/reset.css" />
         <option value="$PROJECT_DIR$/static/css/sources.txt" />
-        <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/static/css/add.css" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/hardware/pump_config.json" />
+        <option value="$PROJECT_DIR$/hardware/menu.py" />
+        <option value="$PROJECT_DIR$/hardware/bartender.py" />
+        <option value="$PROJECT_DIR$/hardware/drinks.py" />
+        <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/templates/drink.html" />
       </list>
     </option>
   </component>
@@ -175,6 +195,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -214,7 +235,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,15 +371,16 @@
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19065522" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33482143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19602577" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -367,7 +388,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -409,37 +429,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hardware/bartender.py</url>
-          <line>434</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hardware/bartender.py</url>
-          <line>440</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/drinks.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/2NMCT_2017-2018/advanced programming &amp; maths/depotter_kenneth_1/opgave2v3/client_3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="36" column="4" lean-forward="false" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/drink.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -452,18 +446,15 @@
         <state relative-caret-position="4473">
           <caret line="213" column="40" lean-forward="true" selection-start-line="213" selection-start-column="40" selection-end-line="213" selection-end-column="40" />
           <folding>
-            <element signature="e#0#23#0" expanded="false" />
-            <element signature="e#4723#4902#0" expanded="false" />
-            <element signature="e#7222#7898#0" expanded="false" />
-            <element signature="e#7950#8452#0" expanded="false" />
-            <element signature="e#8500#8583#0" expanded="false" />
-            <element signature="e#9345#10249#0" expanded="false" />
-            <element signature="e#12245#13117#0" expanded="false" />
-            <element signature="e#13163#13463#0" expanded="false" />
-            <element signature="e#13508#13599#0" expanded="false" />
-            <element signature="e#13646#13850#0" expanded="false" />
-            <element signature="e#13905#15461#0" expanded="false" />
-            <element signature="e#16354#16814#0" expanded="false" />
+            <element signature="e#7549#8225#0" expanded="false" />
+            <element signature="e#8277#8779#0" expanded="false" />
+            <element signature="e#8827#8910#0" expanded="false" />
+            <element signature="e#9672#10576#0" expanded="false" />
+            <element signature="e#11641#12513#0" expanded="false" />
+            <element signature="e#12559#12859#0" expanded="false" />
+            <element signature="e#12904#12995#0" expanded="false" />
+            <element signature="e#13301#14857#0" expanded="false" />
+            <element signature="e#15885#16345#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -474,6 +465,11 @@
           <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#378#519#0" expanded="false" />
+            <element signature="e#577#718#0" expanded="false" />
+            <element signature="e#777#1074#0" expanded="false" />
+            <element signature="e#1124#1886#0" expanded="false" />
+            <element signature="e#2036#2236#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -503,13 +499,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16800">
           <caret line="800" column="0" lean-forward="false" selection-start-line="800" selection-start-column="0" selection-end-line="800" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/pump_config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -674,42 +663,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/bartender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="false" />
-            <element signature="e#4723#4902#0" expanded="false" />
-            <element signature="e#7222#7898#0" expanded="false" />
-            <element signature="e#7950#8452#0" expanded="false" />
-            <element signature="e#8500#8583#0" expanded="false" />
-            <element signature="e#9345#10249#0" expanded="false" />
-            <element signature="e#12245#13117#0" expanded="false" />
-            <element signature="e#13163#13463#0" expanded="false" />
-            <element signature="e#13508#13599#0" expanded="false" />
-            <element signature="e#13646#13850#0" expanded="false" />
-            <element signature="e#13905#15461#0" expanded="false" />
-            <element signature="e#16354#16814#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/img/header-bg.png" />
-    <entry file="file://$PROJECT_DIR$/hardware/menu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="36" column="2" lean-forward="false" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/drinks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-546">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/sources.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
@@ -724,25 +678,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/drink.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/drinks.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="27" column="81" lean-forward="false" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
           <folding />
         </state>
       </provider>
@@ -755,20 +694,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
+    <entry file="file://$PROJECT_DIR$/hardware/pump_config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3150">
-          <caret line="158" column="23" lean-forward="false" selection-start-line="158" selection-start-column="23" selection-end-line="158" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="693">
+          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../junk/Smart-Bartender-old/bartender.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="124" column="81" lean-forward="false" selection-start-line="124" selection-start-column="72" selection-end-line="124" selection-end-column="81" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="319" column="12" lean-forward="false" selection-start-line="319" selection-start-column="12" selection-end-line="319" selection-end-column="12" />
+        <state relative-caret-position="126">
+          <caret line="324" column="1" lean-forward="true" selection-start-line="324" selection-start-column="1" selection-end-line="324" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/img/logo-edit.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#378#519#0" expanded="false" />
+            <element signature="e#577#718#0" expanded="false" />
+            <element signature="e#777#1074#0" expanded="false" />
+            <element signature="e#1124#1886#0" expanded="false" />
+            <element signature="e#2036#2236#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/drinks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-483">
+          <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/bartender.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1554">
+          <caret line="146" column="47" lean-forward="false" selection-start-line="146" selection-start-column="35" selection-end-line="146" selection-end-column="47" />
+          <folding>
+            <element signature="e#7549#8225#0" expanded="false" />
+            <element signature="e#8277#8779#0" expanded="false" />
+            <element signature="e#8827#8910#0" expanded="false" />
+            <element signature="e#9672#10576#0" expanded="false" />
+            <element signature="e#11641#12513#0" expanded="false" />
+            <element signature="e#12559#12859#0" expanded="false" />
+            <element signature="e#12904#12995#0" expanded="false" />
+            <element signature="e#13301#14857#0" expanded="false" />
+            <element signature="e#15885#16345#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="27" column="81" lean-forward="false" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/menu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/drink.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
           <folding />
         </state>
       </provider>

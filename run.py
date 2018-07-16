@@ -80,43 +80,6 @@ def admin():
     return render_template("admin.html")
 
 
-# # path for config
-# @app.route('/configure')
-# def configure():
-#     # basic configure page
-#     return render_template("configure.html")
-#
-#
-# # pump selection
-# @app.route('/pumps')
-# def pumps():
-#     # request pump
-#     pump = request.args.get("pump")
-#     pump = base64.decodestring(pump)
-#     # resuest list af available liquids
-#     return render_template("pumps.html", pump=pump)
-#
-#
-# # pump drink selection
-# @app.route('/pump')
-# def pump():
-#     # request the drink from the menu
-#     drink_in_menu = request.args.get("drink_in_menu")
-#     # resuest list af available liquids
-#     return render_template("pump.html", drink_in_menu=drink_in_menu)
-#
-#
-# # clean machine
-# @app.route('/clean')
-# def clean():
-#     return render_template("clean.html")
-#
-# #simple page to show back
-# @app.route('/back')
-# def back():
-#     return render_template("back.html")
-
-
 # starts the hw
 def start_hardware():
     print("turning on hw")
@@ -131,13 +94,14 @@ def start_hardware():
     # start
     bartender.start_operation()
 
+
 def create_base64():
     # adds a base64 field from the name in order tot transfer
     # not the best way but no classes
     for drink in drink_list:
         drink["base64name"] = base64.encodestring(drink["name"])
 
-#
+# function, "presses" f11 for firefox fullscreen
 def set_full_screen():
     # hit full screen (wat a bit)
     sleep(15)
@@ -171,5 +135,11 @@ if __name__ == '__main__':
         print("Interupted")
 
     finally:
+        #clean gpio
         bartender.clean_gpio()
+
+        # kill firefox
+        os.system("pkill firefox")
+
+
         print("Cleaned GPIO")

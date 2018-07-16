@@ -19,21 +19,25 @@ from drinks import drink_list, drink_options
 SCREEN_WIDTH = 128
 SCREEN_HEIGHT = 64
 
-# pin for left pin (and bounce time)
-LEFT_BTN_PIN = 13
-LEFT_PIN_BOUNCE = 1000
+# pin for menu + pin (and bounce time)
+MENU_PLUS_BTN_PIN = 26
+MENU_PLUS_BTN_BOUNCE = 1000
 
-# pin for right pin (and bounce time)
-RIGHT_BTN_PIN = 5
-RIGHT_PIN_BOUNCE = 2000
+# pin for menu - pin (and bounce time)
+MENU_MIN_BTN_PIN = 19
+MENU_MIN_BTN_BOUNCE = 1000
+
+# pin for selct pin (and bounce time)
+SELECT_BTN_PIN = 13
+SELECT_PIN_BOUNCE = 2000
 
 # set pin for alcohol button
-ALCOHOL_BTN_PIN = 19  # -----!!!!-----
-ALCOHOL_PIN_BOUNCE = 2000  # -----!!!!-----
+ALCOHOL_BTN_PIN = 5
+ALCOHOL_PIN_BOUNCE = 2000
 
 # set pin for alcohol button
-ADMIN_BTN_PIN = 16  # -----!!!!-----
-ADMIN_PIN_BOUNCE = 2000   # -----!!!!-----
+ADMIN_BTN_PIN = 6
+ADMIN_PIN_BOUNCE = 2000
 
 # for display
 OLED_RESET_PIN = 14
@@ -41,8 +45,8 @@ OLED_DC_PIN = 15
 
 # neopixel pins and vars
 NUMBER_NEOPIXELS = 45
-NEOPIXEL_DATA_PIN = 26
-NEOPIXEL_CLOCK_PIN = 6
+NEOPIXEL_DATA_PIN = 22
+NEOPIXEL_CLOCK_PIN = 27
 NEOPIXEL_BRIGHTNESS = 64
 
 # number, liquid the pump can "move", tweek if amount is incorrect
@@ -65,20 +69,23 @@ class Bartender(MenuDelegate):
         self.screen_width = SCREEN_WIDTH
         self.screen_height = SCREEN_HEIGHT
 
-        self.btn1Pin = LEFT_BTN_PIN
-        self.btn2Pin = RIGHT_BTN_PIN
-        self.btn3Pin = ALCOHOL_BTN_PIN  # -----!!!!-----
-        self.btn4Pin = ADMIN_BTN_PIN  # -----!!!!-----
+        self.btnMenuPlusPin = MENU_PLUS_BTN_PIN
+        self.btnMenuMinPin = MENU_MIN_BTN_PIN
+        self.btnSelectPin = SELECT_BTN_PIN
+        self.btnAdminPin = ADMIN_BTN_PIN
+        self.btnAlcoholPin = ALCOHOL_BTN_PIN
 
         # vars for toggle
         self.alcohol_enabled = False
         self.admin_enabled = False
 
         # configure interrups for buttons
-        GPIO.setup(self.btn1Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(self.btn2Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(self.btn3Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # -----!!!!-----
-        GPIO.setup(self.btn4Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # -----!!!!-----
+        GPIO.setup(self.btnMenuPlusPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.btnMenuMinPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.btnSelectPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.btnAdminPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.btnAlcoholPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 
         # configure screen
         spi_bus = 0
@@ -135,16 +142,19 @@ class Bartender(MenuDelegate):
             json.dump(configuration, jsonFile)
 
     def startInterrupts(self):
-        GPIO.add_event_detect(self.btn1Pin, GPIO.FALLING, callback=self.left_btn, bouncetime=LEFT_PIN_BOUNCE)
-        GPIO.add_event_detect(self.btn2Pin, GPIO.FALLING, callback=self.right_btn, bouncetime=RIGHT_PIN_BOUNCE)
-        GPIO.add_event_detect(self.btn3Pin, GPIO.FALLING, callback=self.alcohol_btn,bouncetime=ALCOHOL_PIN_BOUNCE)  # -----!!!!-----
-        GPIO.add_event_detect(self.btn4Pin, GPIO.FALLING, callback=self.admin_btn,bouncetime=ADMIN_PIN_BOUNCE)  # -----!!!!-----
+        GPIO.add_event_detect(self.btnMenuPlusPin, GPIO.FALLING, callback=self.menu_plus_btn, bouncetime=MENU_PLUS_BTN_BOUNCE)
+        GPIO.add_event_detect(self.btnMenuMinPin, GPIO.FALLING, callback=self.menu_min_btn, bouncetime=MENU_MIN_BTN_BOUNCE)
+        GPIO.add_event_detect(self.btnSelectPin, GPIO.FALLING, callback=self.select_btn, bouncetime=SELECT_PIN_BOUNCE)
+
+        GPIO.add_event_detect(self.btnAlcoholPin, GPIO.FALLING, callback=self.alcohol_btn,bouncetime=ALCOHOL_PIN_BOUNCE)
+        GPIO.add_event_detect(self.btnAdminPin, GPIO.FALLING, callback=self.admin_btn,bouncetime=ADMIN_PIN_BOUNCE)
 
     def stopInterrupts(self):
-        GPIO.remove_event_detect(self.btn1Pin)
-        GPIO.remove_event_detect(self.btn2Pin)
-        GPIO.remove_event_detect(self.btn3Pin)
-        GPIO.remove_event_detect(self.btn4Pin)
+        GPIO.remove_event_detect(self.btnAlcoholPin)
+        GPIO.remove_event_detect(self.btnAdminPin)
+        GPIO.remove_event_detect(self.btnSelectPin)
+        GPIO.remove_event_detect(self.btnMenuMinPin)
+        GPIO.remove_event_detect(self.btnMenuPlusPin)
 
     def buildMenu(self, drink_list, drink_options, alcoholic_drinks_enabled=False, admin_options_enabled=False):
         # create a new main menu
@@ -308,27 +318,6 @@ class Bartender(MenuDelegate):
             path = "/basic-menu?item={0}&type={1}".format(base64.encodestring(menuItem.name), base64.encodestring(menuItem.type))
             self.create_exectute_display_command(path)
 
-        # elif (menuItem.type == "pump_selection"):
-        #     path = "/pump?pump={0}".format(base64.encodestring(menuItem.name))
-        #     self.create_exectute_display_command(path)
-        #
-        # elif (menuItem.type == "clean"):
-        #     path = "/clean"
-        #     self.create_exectute_display_command(path)
-        #
-        # elif (menuItem.type == "menu"):
-        #     # check if it is a pump, conf or something else
-        #     if "Pump" not in menuItem.name:
-        #         path = "/pumps?pump={0}".format(base64.encodestring(menuItem.name))
-        #         self.create_exectute_display_command(path)
-        #
-        #     if "configure" in menuItem.name:
-        #         path = "/configure"
-        #         self.create_exectute_display_command(path)
-        #
-        # elif (menuItem.type == "back"):
-        #     path = "/back"
-        #     self.create_exectute_display_command(path)
 
     def create_exectute_display_command(self, webpath):
         # makes the command with the given parms
@@ -432,13 +421,19 @@ class Bartender(MenuDelegate):
         # self.startInterrupts()
         self.running = False
 
-    def left_btn(self, ctx):
-        print("left hit")
+    def menu_plus_btn(self, ctx):
+        print("plus hit")
 
         if not self.running:
             self.menuContext.advance()
 
-    def right_btn(self, ctx):
+    def menu_min_btn(self, ctx):
+        print("min hit")
+
+        if not self.running:
+            self.menuContext.previous()
+
+    def select_btn(self, ctx):
 
         if not self.running:
             print("cocktail selected")
