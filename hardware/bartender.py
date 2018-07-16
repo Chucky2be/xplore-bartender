@@ -79,6 +79,8 @@ class Bartender(MenuDelegate):
         self.alcohol_enabled = False
         self.admin_enabled = False
 
+        self.weborders = False
+
         # configure interrups for buttons
         GPIO.setup(self.btnMenuPlusPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.btnMenuMinPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)

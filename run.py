@@ -3,14 +3,13 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import abort
+from flask import redirect
 from hardware.bartender import Bartender
 from hardware.drinks import *  # this provides the drink list mentioned
 from time import sleep
 from threading import Thread
 
 app = Flask(__name__)
-drink_making_web = True
-
 
 # region Webpages
 # index (same as cocktail overvieuw)
@@ -42,7 +41,7 @@ def drink():
     # if coctail does not exist throw 404
     try:
         drink = get_drink_from_base64name(drink_name)
-        return render_template("drink.html", drink=drink, drink_making_web=drink_making_web)
+        return render_template("drink.html", drink=drink, web_orders=bartender.weborders)
     except Exception as ex:
         print(ex)
         abort(404)
@@ -52,7 +51,7 @@ def drink():
 def drink_post():
 
     try:
-        if drink_making_web == True:
+        if bartender.weborders == True:
             # request if cocktail was given
             drink_name = request.args.get("drink")
 
@@ -60,7 +59,7 @@ def drink_post():
             try:
                 drink = get_drink_from_base64name(drink_name)
                 bartender.makeDrink(drink["name"], drink["ingredients"])
-
+                return render_template("done.html", drink=drink)
             except Exception as ex:
                 print(ex)
                 abort(404)
@@ -140,13 +139,12 @@ def settings_post():
         elif form_type == "shutdown":
             bartender.shutdown()
 
-        elif form_type == "drink_making_web_enable":
-            try:
-                if request.form["drink_making_web_enable"] == '1':
-                    drink_making_web = True
+        elif form_type == "enable_weborders":
+            #boolean flip
+            bartender.weborders = bartender.weborders ^ 1
 
-            except:
-                drink_making_web = False
+        return redirect("/settings", code=303)
+
 
     except:
         abort(400)
@@ -219,6 +217,6 @@ if __name__ == '__main__':
         bartender.clean_gpio()
 
         # kill firefox
-        os.system("pkill firefox")
+        os.system("sudo pkill firefox")
 
         print("Cleaned GPIO")
