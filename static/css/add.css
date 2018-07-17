@@ -1,20 +1,45 @@
+/* general elements */
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
 }
 
+h1 {
+    color: #FF8400;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 23px;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+h2 {
+    color: #FF8400;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 18px;
+    letter-spacing: -1px;
+}
+
+h3 {
+    color: #676767;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 16px;
+    letter-spacing: -1px;
+}
+
+
+/* specific styling */
 .content {
-  flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 
 .footer1 {
-  flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-  padding: 20px;
+    flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    padding: 20px;
 }
 
 .detail-box {
@@ -49,14 +74,6 @@ body {
     margin: auto;
 }
 
-.detail-description h1 {
-    color: #FF8400;
-    font-family: 'Carrois Gothic SC', sans-serif;
-    font-size: 23px;
-    letter-spacing: -1px;
-    font-weight: bold;
-}
-
 .detail-description p {
     /*float: left;*/
 }
@@ -67,15 +84,7 @@ body {
     vertical-align: middle;
 }
 
-.center-all h1 {
-    color: #FF8400;
-    font-family: 'Carrois Gothic SC', sans-serif;
-    font-size: 23px;
-    letter-spacing: -1px;
-    font-weight: bold;
-}
 
-/*---End-wrap*/
 /*------responive-design--------*/
 @media screen and (max-width: 1024px) {
     .detail-container {
@@ -93,8 +102,7 @@ body {
         width: 100%;
     }
 
-    .detail-box
-    {
+    .detail-box {
         box-shadow: 0px 0px 5px rgb(192, 192, 192);
     }
 

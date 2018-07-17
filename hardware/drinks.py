@@ -55,7 +55,7 @@ drink_list = [
         "alcoholic": True,
         "img": "../static/img/cocktails/margarita.jpg",
         "description_short": "Alcoholic",
-        "description": "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice often served with salt on the rim of the glass. The drink is served shaken with ice (on the rocks), blended with ice (frozen margarita), or without ice (straight up). Although it has become acceptable to serve a margarita in a wide variety of glass types, ranging from cocktail and wine glasses to pint glasses and even large schooners, the drink is traditionally served in the eponymous margarita glass, a stepped-diameter variant of a cocktail glass or champagne coupe."
+        "description": "A margarita is a cocktail consisting of tequila, orange liqueur, and lime juice often served with salt on the rim of the glass. The drink is served shaken with ice (on the rocks), blended with ice (frozen margarita), or without ice (straight up)."
     }, {
         "name": "Gin & Juice",
         "ingredients": {
@@ -97,6 +97,9 @@ drink_list = [
     }
 ]
 
+drink_dict = {}
+
+
 drink_options = [
     {"name": "Gin", "value": "gin"},
     {"name": "Rum", "value": "rum"},
@@ -108,9 +111,10 @@ drink_options = [
     {"name": "Margarita Mix", "value": "mmix"}
 ]
 
-drink_dict = {}
+drink_options_names = []
 
-# converts the above list into dict so it becomes searchable
+
+# converts the drink list into dict so it becomes searchable
 def list_to_dict():
     for drink in drink_list:
         drink_dict[refactor_name(drink["name"])] = drink
@@ -137,5 +141,11 @@ def get_drink_from_base64name(base64name):
         #throw ex if not found
         raise Exception("Id not found, probaly not in dict")
 
+# makes a list of the stored drinks ("ingriedients")
+def get_option_names():
+    if not drink_options_names:
+        for drink_option in drink_options:
+            drink_options_names.append(drink_option["name"] + " (" + drink_option["value"] + ")" )
 
+    return  drink_options_names
 

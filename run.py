@@ -122,7 +122,7 @@ def admin():
 @app.route('/settings', methods=['GET'])
 def settings():
     try:
-        return render_template("settings.html", pump_config="", )
+        return render_template("settings.html", pump_config= bartender.pump_configuration, drink_options=get_option_names())
     except:
         abort(400)
 
@@ -219,4 +219,4 @@ if __name__ == '__main__':
         # kill firefox
         os.system("sudo pkill firefox")
 
-        print("Cleaned GPIO")
+        print("Cleaned GPIO, killed Firefox")

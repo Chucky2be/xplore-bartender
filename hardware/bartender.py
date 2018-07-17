@@ -134,8 +134,6 @@ class Bartender(MenuDelegate):
 
     @staticmethod
     def readPumpConfiguration():
-        os.system("pwd")
-        os.system("ls -a")
         return json.load(open('hardware/pump_config.json'))
 
     @staticmethod

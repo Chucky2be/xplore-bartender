@@ -8,15 +8,20 @@
 {% block content %}
     <h1>Management</h1>
     <h2>Drink overview</h2>
-    <p>Here you find all of the drinks stored in the machine</p>
-    {% for drink in drink_config %}
-        <p>{{ drink }}</p>
+    <p>Here you find all of the drinks ("ingredients") stored in the machine</p>
+    {% for drink_option in drink_options %}
+        <p>{{ drink_option }}</p>
     {% endfor %}
 
+    <br>
+
     <h2>Pump overview</h2>
+    <p>Here you find all of the drinks ("ingredients") used in the machine</p>
     {% for pump in pump_config %}
-        <p>{{ pump }}</p>
+        <p>{{ pump_config[pump]["name"] }} - {{ pump_config[pump]["value"] }}</p>
     {% endfor %}
+
+    <br>
 
     <h2>Interfacing</h2>
     <form method="post" title="Enable website orders">
@@ -25,6 +30,8 @@
         <input type="submit" value="Enable website orders" id="submit">
     </form>
 
+    <br>
+
     <h2>Other</h2>
     <form method="post" title="Cleaning">
         <h3> Clean the machine</h3>
@@ -32,11 +39,15 @@
         <input type="submit" value="Clean" id="submit">
     </form>
 
+    <br>
+
     <form method="post" title="Power off">
         <h3> Shutdown the machine</h3>
         <input type="text" value="shutdown" title="type" name="type" hidden="hidden">
         <input type="submit" value="Shutdown" id="submit">
     </form>
+
+    <br>
 
 
 

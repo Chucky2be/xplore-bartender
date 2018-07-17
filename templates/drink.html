@@ -6,32 +6,36 @@
 
 
 {% block content %}
-    <div class="wrap">
-        <div class="detail-box">
-            <img src="{{ drink.img }}" class="detail-img">
-        </div>
+    <div class="detail-box">
+        <img src="{{ drink.img }}" class="detail-img">
+    </div>
 
 
-        <div class="detail-description">
-            <h1>{{ drink.name }}</h1>
-            <p>{{ drink.description }}</p>
+    <div class="detail-description">
+        <h1>{{ drink.name }}</h1>
+        <p>{{ drink.description }}</p>
+        <br>
+        <p>
+            Ingredients:
+            {% for ingredient in drink.ingredients %}
+                {{ ingredient }}
+            {% endfor %}
+        </p>
+
+        {% if web_orders == True %}
             <br>
-            <p>
-                Ingredients:
-                {% for ingredient in drink.ingredients %}
-                    {{ ingredient }}
-                {% endfor %}
-            </p>
-
-            {% if web_orders == True %}
+            <div class="contact-form">
                 <form method="post" title="drink" name="pasword">
                     <input type="text" value="drink" title="drink" name="drink" hidden="hidden">
-                    <input type="submit" value="Make!" id="submit">
+                    <div>
+                        <span><input type="submit" value="Make!" id="submit"></span>
+                    </div>
                 </form>
-            {% endif %}
+            </div>
+        {% endif %}
 
-        </div>
     </div>
+
 {% endblock %}
 
 {% block scripts %}
