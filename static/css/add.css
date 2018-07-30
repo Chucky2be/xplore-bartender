@@ -31,7 +31,6 @@ h3 {
     letter-spacing: -1px;
 }
 
-
 /* specific styling */
 .content {
     flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
@@ -84,6 +83,31 @@ h3 {
     vertical-align: middle;
 }
 
+.img-box {
+    max-width: 45%;
+    height: auto;
+}
+
+.img-box-cancel {
+    max-width: 45%;
+    height: auto;
+    opacity: 0.5;
+}
+
+.link_button {
+    text-decoration: none;
+    background-color: #FF8400;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    width: 594px;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: ruby-text; /*strange but works*/
+}
 
 /*------responive-design--------*/
 @media screen and (max-width: 1024px) {
@@ -94,7 +118,6 @@ h3 {
     .detail-description {
         padding-top: 25px;
     }
-
 }
 
 @media screen and (max-width: 800px) {
@@ -127,6 +150,10 @@ h3 {
         padding-right: 10px;
     }
 
+    .img-box {
+        max-width: 80%;
+        height: auto;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -138,7 +165,10 @@ h3 {
 }
 
 @media screen and (max-width: 414px) {
-
+    .img-box {
+        max-width: 90%;
+        height: auto;
+    }
 }
 
 @media screen and (max-width: 384px) {

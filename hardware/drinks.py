@@ -1,5 +1,5 @@
-import uuid
 import base64
+import json
 
 drink_list = [
     {
@@ -108,11 +108,20 @@ drink_options = [
     {"name": "Tonic Water", "value": "tonic"},
     {"name": "Coke", "value": "coke"},
     {"name": "Orange Juice", "value": "oj"},
-    {"name": "Margarita Mix", "value": "mmix"}
+    {"name": "Margarita Mix", "value": "mmix"},
+    {"name": "Nothing", "value": "nothing"}
 ]
 
 drink_options_names = []
 
+def filter_not_possible(drink_list = drink_list):
+    with open('pump_config.json') as json_data:
+        d = json.load(json_data)
+        print(d)
+    #
+    # for drink in drink_list:
+    #     for ing in drink:
+    #         if ing in
 
 # converts the drink list into dict so it becomes searchable
 def list_to_dict():

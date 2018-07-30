@@ -195,7 +195,8 @@ form span {
 
 .contact-form form textarea,
 .contact-form form input[type=submit],
-.contact-form form input[type=text] {
+.contact-form form input[type=text],
+.contact-form form input[type=password]{
     border: 1px solid #ddd;
     padding: 7px;
     width: 594px;

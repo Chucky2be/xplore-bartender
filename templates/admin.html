@@ -11,18 +11,21 @@
 
         <div class="contact-form">
             <h4>Login to manage the system</h4>
-            <form>
+            <form method="post" title="login" name="loginform">
                 <div>
-                    <span><label>Login</label></span>
-                    <span><input type="text" value=""/></span>
+                    <span><label>Username</label></span>
+                    <span><input type="text" value="" name="username" title="username"/></span>
                 </div>
                 <div>
-                    <span><label>Email</label></span>
-                    <span><input type="text" value=""/></span>
+                    <span><label>Password</label></span>
+                    <span><input type="password" value="" name="password" title="password"/></span>
                 </div>
                 <div>
-                    <span><input type="submit" value="Submit"></span>
+                    <span><input type="submit" value="Login" id="submit"></span>
                 </div>
+                {% if error != "" %}
+                <p>{{ error }}</p>
+                {% endif %}
             </form>
 
         </div>

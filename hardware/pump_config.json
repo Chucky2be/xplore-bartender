@@ -7,7 +7,7 @@
 	"pump_2": {
 		"name": "Pump 2",
 		"pin": 23,
-		"value": "tonic"
+		"value": "tequila"
 	},
 	"pump_3": {
 		"name": "Pump 3",
@@ -22,12 +22,13 @@
 	"pump_5": {
 		"name": "Pump 5",
 		"pin": 12,
-		"value": "tequila"
+		"value": "mmix"
+
 	},
 	"pump_6": {
 		"name": "Pump 6",
 		"pin": 16,
-		"value": "coke"
+		"value": "tonic"
 	},
 	"pump_7": {
 		"name": "Pump 7",
@@ -37,6 +38,7 @@
 	"pump_8": {
 		"name": "Pump 8",
 		"pin": 21,
-		"value": "mmix"
+		"value": "coke"
+
 	}
 }

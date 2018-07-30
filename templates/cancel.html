@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Bartender - Cancel
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="center-all">
+        <h1> Canceled {{ drink.name }}</h1>
+        <img src="{{ drink.img }}" class="img-box-cancel">
+        <p>Please wait until the machine has reset itself to proceed.</p>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

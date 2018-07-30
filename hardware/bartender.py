@@ -21,15 +21,15 @@ SCREEN_HEIGHT = 64
 
 # pin for menu + pin (and bounce time)
 MENU_PLUS_BTN_PIN = 26
-MENU_PLUS_BTN_BOUNCE = 1000
+MENU_PLUS_BTN_BOUNCE = 13000
 
 # pin for menu - pin (and bounce time)
 MENU_MIN_BTN_PIN = 19
-MENU_MIN_BTN_BOUNCE = 1000
+MENU_MIN_BTN_BOUNCE = 13000
 
 # pin for selct pin (and bounce time)
 SELECT_BTN_PIN = 13
-SELECT_PIN_BOUNCE = 2000
+SELECT_PIN_BOUNCE = 15000
 
 # set pin for alcohol button
 ALCOHOL_BTN_PIN = 5
@@ -44,18 +44,18 @@ OLED_RESET_PIN = 14
 OLED_DC_PIN = 15
 
 # neopixel pins and vars
-NUMBER_NEOPIXELS = 45
-NEOPIXEL_DATA_PIN = 22
-NEOPIXEL_CLOCK_PIN = 27
+NUMBER_NEOPIXELS = 60
+NEOPIXEL_DATA_PIN = 17
+NEOPIXEL_CLOCK_PIN = 4
 NEOPIXEL_BRIGHTNESS = 64
 
 # number, liquid the pump can "move", tweek if amount is incorrect
 FLOW_RATE = 60.0 / 100.0
 
 # vars from the web site
-server_host =  "169.254.55.5"
-#server_host =  "127.0.0.1"
-server_port =  "8080"
+server_host = "169.254.55.5"
+# server_host =  "127.0.0.1"
+server_port = "8080"
 root_path = "/"
 
 
@@ -87,7 +87,6 @@ class Bartender(MenuDelegate):
         GPIO.setup(self.btnSelectPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.btnAdminPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.btnAlcoholPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
 
         # configure screen
         spi_bus = 0
@@ -142,12 +141,15 @@ class Bartender(MenuDelegate):
             json.dump(configuration, jsonFile)
 
     def startInterrupts(self):
-        GPIO.add_event_detect(self.btnMenuPlusPin, GPIO.FALLING, callback=self.menu_plus_btn, bouncetime=MENU_PLUS_BTN_BOUNCE)
-        GPIO.add_event_detect(self.btnMenuMinPin, GPIO.FALLING, callback=self.menu_min_btn, bouncetime=MENU_MIN_BTN_BOUNCE)
+        GPIO.add_event_detect(self.btnMenuPlusPin, GPIO.FALLING, callback=self.menu_plus_btn,
+                              bouncetime=MENU_PLUS_BTN_BOUNCE)
+        GPIO.add_event_detect(self.btnMenuMinPin, GPIO.FALLING, callback=self.menu_min_btn,
+                              bouncetime=MENU_MIN_BTN_BOUNCE)
         GPIO.add_event_detect(self.btnSelectPin, GPIO.FALLING, callback=self.select_btn, bouncetime=SELECT_PIN_BOUNCE)
 
-        GPIO.add_event_detect(self.btnAlcoholPin, GPIO.FALLING, callback=self.alcohol_btn,bouncetime=ALCOHOL_PIN_BOUNCE)
-        GPIO.add_event_detect(self.btnAdminPin, GPIO.FALLING, callback=self.admin_btn,bouncetime=ADMIN_PIN_BOUNCE)
+        GPIO.add_event_detect(self.btnAlcoholPin, GPIO.FALLING, callback=self.alcohol_btn,
+                              bouncetime=ALCOHOL_PIN_BOUNCE)
+        GPIO.add_event_detect(self.btnAdminPin, GPIO.FALLING, callback=self.admin_btn, bouncetime=ADMIN_PIN_BOUNCE)
 
     def stopInterrupts(self):
         GPIO.remove_event_detect(self.btnAlcoholPin)
@@ -247,7 +249,7 @@ class Bartender(MenuDelegate):
 
     def menuItemClicked(self, menuItem):
         if (menuItem.type == "drink"):
-            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"]) ###################################"
+            self.makeDrink(menuItem.name, menuItem.attributes["ingredients"])
             return True
         elif (menuItem.type == "pump_selection"):
             self.pump_configuration[menuItem.attributes["key"]]["value"] = menuItem.attributes["value"]
@@ -297,7 +299,7 @@ class Bartender(MenuDelegate):
 
     def shutdown(self):
         print("system will go off")
-        os.system("sudo shutdown now")
+        os.system("sudo shutdown -h now")
 
     def displayMenuItem(self, menuItem):
         print menuItem.name
@@ -318,13 +320,13 @@ class Bartender(MenuDelegate):
             self.create_exectute_display_command(path)
 
         else:
-            path = "/basic-menu?item={0}&type={1}".format(base64.encodestring(menuItem.name), base64.encodestring(menuItem.type))
+            path = "/basic-menu?item={0}&type={1}".format(base64.encodestring(menuItem.name),
+                                                          base64.encodestring(menuItem.type))
             self.create_exectute_display_command(path)
-
 
     def create_exectute_display_command(self, webpath):
         # makes the command with the given parms
-        command = "DISPLAY=:0 firefox '{0}:{1}{2}' &".format(server_host,server_port,webpath)
+        command = "DISPLAY=:0 firefox '{0}:{1}{2}' &".format(server_host, server_port, webpath)
         # execute
         os.system(command)
 
@@ -382,6 +384,7 @@ class Bartender(MenuDelegate):
 
         # show a page so the user knows it's buzzy
         self.create_exectute_display_command("/making?drink={0}".format(base64.encodestring(drink)))
+        self.served_drink = drink
 
         # launch a thread to control lighting
         lightsThread = threading.Thread(target=self.cycleLights)
@@ -390,14 +393,23 @@ class Bartender(MenuDelegate):
         # Parse the drink ingredients and spawn threads for pumps
         maxTime = 0
         pumpThreads = []
+
+        # store the longes wait time to sleep later
+        longestWaitTime = 0
+
         for ing in ingredients.keys():
             for pump in self.pump_configuration.keys():
                 if ing == self.pump_configuration[pump]["value"]:
                     waitTime = ingredients[ing] * FLOW_RATE
                     if (waitTime > maxTime):
                         maxTime = waitTime
-                    pump_t = threading.Thread(target=self.pour, args=(self.pump_configuration[pump]["pin"], waitTime))
+                    pump_t = threading.Thread(target=self.pour,
+                                              args=(self.pump_configuration[pump]["pin"], waitTime))
                     pumpThreads.append(pump_t)
+
+                    # chek waiting time
+                    if longestWaitTime < waitTime:
+                        longestWaitTime = waitTime
 
         # start the pump threads
         for thread in pumpThreads:
@@ -409,6 +421,7 @@ class Bartender(MenuDelegate):
         # wait for threads to finish
         for thread in pumpThreads:
             thread.join()
+        # sleep(longestWaitTime)
 
         # show the main menu
         self.menuContext.showMenu()
@@ -421,7 +434,7 @@ class Bartender(MenuDelegate):
         self.lightsEndingSequence()
 
         # sleep for a couple seconds to make sure the interrupts don't get triggered
-        time.sleep(2)  # ;
+        time.sleep(4)  # ;
 
         # reenable interrupts
         # self.startInterrupts()
@@ -445,20 +458,31 @@ class Bartender(MenuDelegate):
             print("cocktail selected")
             self.menuContext.select()
         else:
-            print ("cocktail already being made")
+            #could be better but due the fact:
+            #   thread can't be stopped
+            #   error ignored
+            #no better solution
+            print("Cancel selected")
+
+            self.create_exectute_display_command("/cancel?drink={0}".format(base64.encodestring(self.served_drink)))
+
+            for pump in self.pump_configuration.keys():
+                GPIO.output(self.pump_configuration[pump]["pin"], GPIO.HIGH)
+
+            print("cancel done")
 
     def alcohol_btn(self, ctx):
         print("alcohol hit")
 
         # rebuild the menu
-        self.alcohol_enabled= self.alcohol_enabled ^ 1
+        self.alcohol_enabled = self.alcohol_enabled ^ 1
         self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
 
     def admin_btn(self, ctx):
         print("admin hit")
 
         # rebuild the menu
-        self.admin_enabled= self.admin_enabled ^ 1
+        self.admin_enabled = self.admin_enabled ^ 1
         self.buildMenu(drink_list, drink_options, self.alcohol_enabled, self.admin_enabled)  # -----!!!!-----
 
     def updateProgressBar(self, percent, x=15, y=15):
@@ -481,7 +505,6 @@ class Bartender(MenuDelegate):
         self.buildMenu(drink_list, drink_options)
         self.run()
 
-
     @staticmethod
     def set_gpio():
         GPIO.setmode(GPIO.BCM)
@@ -489,5 +512,3 @@ class Bartender(MenuDelegate):
     def clean_gpio(self):
         self.stopInterrupts()
         GPIO.cleanup()
-
-

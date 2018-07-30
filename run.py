@@ -4,47 +4,59 @@ from flask import render_template
 from flask import request
 from flask import abort
 from flask import redirect
+from flask import session
 from hardware.bartender import Bartender
 from hardware.drinks import *  # this provides the drink list mentioned
 from time import sleep
 from threading import Thread
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
+app.secret_key = 'D7ZrQQ0/p7n R~Xhh!jmN]APX/,?CR'
 
 # region Webpages
 # index (same as cocktail overvieuw)
 @app.route('/')
 def index():
     try:
-        return render_template("drinks.html", drink_list=drink_list)
+        return redirect("/drinks", 300)
     except Exception as ex:
         print(ex)
-        abort(404)
+        abort(400)
 
 
 # detail cocktail
 @app.route('/drinks')
 def drinks():
     try:
-        return render_template("drinks.html", drink_list=drink_list)
+        if bartender.alcohol_enabled:
+            return render_template("drinks.html", drink_list=drink_list)
+        else:
+            # listcomprehension for filtering
+            filtered_drink_list = [drink for drink in drink_list if drink["alcoholic"] == False]
+            return render_template("drinks.html", drink_list=filtered_drink_list)
     except Exception as ex:
         print(ex)
-        abort(404)
+        abort(400)
 
 
 # path for one drink
 @app.route("/drink", methods=["GET"])
 def drink():
-    # request if cocktail was given
-    drink_name = request.args.get("drink")
-
-    # if coctail does not exist throw 404
     try:
-        drink = get_drink_from_base64name(drink_name)
-        return render_template("drink.html", drink=drink, web_orders=bartender.weborders)
-    except Exception as ex:
-        print(ex)
-        abort(404)
+        # request if cocktail was given
+        drink_name = request.args.get("drink")
+
+        # if coctail does not exist throw 404
+        try:
+            drink = get_drink_from_base64name(drink_name)
+            return render_template("drink.html", drink=drink, web_orders=bartender.weborders)
+        except Exception as ex:
+            print(ex)
+            abort(404)
+    except:
+        abort(400)
 
 
 @app.route("/drink", methods=["POST"])
@@ -58,12 +70,21 @@ def drink_post():
             # if coctail does not exist throw 404
             try:
                 drink = get_drink_from_base64name(drink_name)
-                bartender.makeDrink(drink["name"], drink["ingredients"])
-                return render_template("done.html", drink=drink)
+
+                # check if alcoholic and allowed
+                if drink["alcoholic"] == True and bartender.alcohol_enabled == False:
+                    # forbidden
+                    abort(403)
+                else:
+                    # make the drink
+                    bartender.makeDrink(drink["name"], drink["ingredients"])
+                    return render_template("done.html", drink=drink)
+
             except Exception as ex:
-                print(ex)
+                # not found
                 abort(404)
         else:
+            # forbidden
             abort(403)
 
 
@@ -81,8 +102,18 @@ def making():
         return render_template("making.html", drink = drink)
 
     except Exception as ex:
-        print(ex)
+        abort(400)
 
+@app.route("/cancel")
+def cancel():
+    try:
+        drink_name =  request.args.get("drink")
+        drink = get_drink_from_base64name(drink_name)
+
+        return render_template("cancel.html", drink = drink)
+
+    except Exception as ex:
+        abort(400)
 
 @app.route("/basic-menu")
 def basicmenu():
@@ -109,20 +140,52 @@ def basicmenu():
 
     except Exception as ex:
         print(ex)
-        abort(404)
+        abort(400)
 
 
 # admin (alcohol, toggle, ...)
-@app.route('/admin')
-def admin():
-    return render_template("admin.html")
+@app.route('/admin', methods=['GET'])
+def admin(error = ""):
+    try:
+        if 'username' in session:
+            return redirect("/settings", 300)
+        else:
+            return render_template("admin.html", error=error)
+    except:
+        abort(400)
+
+
+@app.route('/admin', methods=['POST'])
+def admin_post():
+
+    try:
+        password = request.form.get('password')
+        username = request.form.get('username')
+
+        print(password)
+
+        if check_password_hash("pbkdf2:sha256:1000$2Hfx3SqO$db68641165e5d1090ba1cc5cb2d8c2a28726b4ffabd6ed8d38b044b37feb2f10", password) == True or check_password_hash("pbkdf2:sha256:1000$OjDNDdaJ$59c70018fdaf1b0c353f4a8ab83294fb579297ea2ea43b9e3a03cff99fd2d99a", password):
+            session['username'] = username
+            return redirect('/settings')
+        else:
+            return render_template("admin.html", error="Wrong password or username")
+
+    except Exception as ex:
+        print(ex)
+        abort(400)
+
 
 
 # settings (alcohol, toggle, ...)
 @app.route('/settings', methods=['GET'])
 def settings():
     try:
-        return render_template("settings.html", pump_config= bartender.pump_configuration, drink_options=get_option_names())
+        if 'username' in session:
+        # if True:
+            return render_template("settings.html", pump_config= bartender.pump_configuration, drink_options=get_option_names())
+        else:
+            #unautorised
+            abort(401)
     except:
         abort(400)
 
@@ -130,23 +193,38 @@ def settings():
 @app.route('/settings', methods=['POST'])
 def settings_post():
     try:
-        #key = request.args.get("key")
-        form_type = (request.form['type'])
+        if 'username' in session:
+        # if True:
+            form_type = (request.form['type'])
 
-        if form_type ==  "clean":
-            bartender.clean()
+            if form_type == "clean":
+                bartender.clean()
 
-        elif form_type == "shutdown":
-            bartender.shutdown()
+            elif form_type == "shutdown":
+                bartender.shutdown()
 
-        elif form_type == "enable_weborders":
-            #boolean flip
-            bartender.weborders = bartender.weborders ^ 1
+            elif form_type == "enable_weborders":
+                # boolean flip
+                bartender.weborders = bartender.weborders ^ 1
 
-        return redirect("/settings", code=303)
+            elif form_type == "enable_alcohol":
+                # boolean flip
+                bartender.alcohol_enabled = bartender.alcohol_enabled ^ 1
+
+            elif form_type == "logoff":
+                # clear the session
+                session.clear()
+                return redirect("/admin", 303)
+
+            return redirect("/settings", code=303)
+
+        else:
+            #unauthorised
+            abort(401)
 
 
     except:
+        #bad request
         abort(400)
 
 
@@ -202,12 +280,16 @@ if __name__ == '__main__':
         port = int(os.environ.get("PORT", 8080))
         # set ip
         host = "169.254.55.5"
+
+        # drinks.filter_not_possible()
+
         # pas parms and set debug
         app.run(host=host, port=port, debug=False, threaded=True)
 
         # app.run(port=port, debug=False, threaded=True)
 
 
+    # except Exception as ex:
     except Exception as ex:
         print(ex)
         print("Interupted")
